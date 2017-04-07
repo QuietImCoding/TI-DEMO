@@ -56,23 +56,18 @@ var makeButton = function(title, x, y, func) {
 	page.style.cursor = "default";
     });
     if (func != undefined) {
-	rectangle.addEventListener("click", func);
+	rectangle.addEventListener("click", function(e) {
+	    func(title);
+	});
     }
     return rectangle;
-}
-
-var alpha = function(e) {
-    pressed("ALPHA");
-}
-
-var second = function(e) {
-    pressed("2ND");
 }
 
 var pressed = function(string) {
     alert("YOU PRESSED " + string + "!!1!!1!");
 }
 
+var alpha = function(thing) { pressed(thing); }
 
 var resize = function(e) {
     bbbox = page.getBBox();
@@ -83,6 +78,27 @@ var resize = function(e) {
     width = bbox.width;
 }
 
+var mapButtons = function() {
+    makeButton("2ND", pwidth/2.34, pheight/2.43, alpha);
+    makeButton("ALPHA", pwidth/2.34, pheight/2.17, alpha);
+    makeButton("MATH", pwidth/2.32, pheight/1.99, alpha);
+    makeButton("x^-1", pwidth/2.32, pheight/1.81, alpha);
+    makeButton("x^2", pwidth/2.32, pheight/1.66, alpha);
+    makeButton("LOG", pwidth/2.32, pheight/1.54, alpha);
+    makeButton("LN", pwidth/2.32, pheight/1.43, alpha);
+    makeButton("STO", pwidth/2.32, pheight/1.33, alpha);
+    makeButton("ON", pwidth/2.31, pheight/1.24, alpha);
+    makeButton("MODE", pwidth/2, pheight/2.43, alpha);
+    makeButton("X,T,O,n", pwidth/2.34, pheight/2.17, alpha);
+    makeButton("APPS", pwidth/2.32, pheight/1.99, alpha);
+    makeButton("SIN", pwidth/2.32, pheight/1.81, alpha);
+    makeButton(",", pwidth/2.32, pheight/1.66, alpha);
+    makeButton("7", pwidth/2.32, pheight/1.54, alpha);
+    makeButton("4", pwidth/2.32, pheight/1.43, alpha);
+    makeButton("1", pwidth/2.32, pheight/1.33, alpha);
+    makeButton("0", pwidth/2.31, pheight/1.24, alpha); 
+}
+
 var setup = function() {
     page = document.getElementById("page");
     page.setAttribute("width", window.innerWidth);
@@ -91,11 +107,10 @@ var setup = function() {
     pwidth = window.innerWidth;
     screen = document.getElementById("screen");
     resize();
-    window.onresize = resize;
+    //window.onresize = resize;
 
     makeCircle(30, 40, 10, screen);
-    makeButton("2ND", pwidth/2.36, pheight/2.43, second);
-    makeButton("ALPHA", pwidth/2.36, pheight/2.17, alpha);
+mapButtons();
     console.log(buttons);
     //makeRect(720, 405, 40, 20, page);
     console.log("HEIGHT: " + height + ", WIDTH: " + width);
@@ -103,3 +118,4 @@ var setup = function() {
 }
 
 window.onload = setup;
+
